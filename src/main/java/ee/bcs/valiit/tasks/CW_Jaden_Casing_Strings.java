@@ -1,19 +1,24 @@
 package ee.bcs.valiit.tasks;
 
 public class CW_Jaden_Casing_Strings {
-    public static void main(String[] args) {
-//        int[] myArray = {1, 2, 3, 4};
-//        int myN = 2;
+    public void main(String[] args) {
+        String myString = "How can mirrors be real if our eyes aren't real";
 
-        int[] myArray = {1, 2, 3};
-        int myN = 3;
-
-        System.out.println(nthPower(myArray, myN));;
+        System.out.println(toJadenCase(myString));
     }
 
-    public static int nthPower(int[] array, int n) {
+    public String toJadenCase(String phrase) {
+        // TODO put your code below this comment
+        if (phrase.equals("") || phrase.equals(null)) {
+            return null;
+        }
+        else {
+            for (int i = 0; i < phrase.length(); i++) {
+                 char currentChar = phrase.charAt(i);
 
-
+            }
+            return null;
+        }
     }
 
 }
