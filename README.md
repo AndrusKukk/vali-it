@@ -52,6 +52,7 @@ https://www.codewars.com/kata/59ccf051dcc4050f7800008f
 https://www.codewars.com/kata/5a24a35a837545ab04001614   
 ### Raskus 4
 https://www.codewars.com/kata/5819f1c3c6ab1b2b28000624  
+https://www.codewars.com/kata/521c2db8ddc89b9b7a0000c1  
 
 ## Testid (vanad)
 **Test 1 (09.11.2020)**:   
@@ -59,5 +60,5 @@ https://www.codewars.com/kata/5819f1c3c6ab1b2b28000624
 **Test 3 (23.11.2020)**: https://drive.google.com/file/d/1SjuCmoci_Zugl2qPl9QCFV79qYMsD3F2/view?usp=sharing  
 **Test 4 (30.11.2020)**:  
 
-## Kodune lugemine (vanad)
+## Kodune lugemine
 * https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html  
