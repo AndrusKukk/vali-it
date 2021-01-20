@@ -13,6 +13,10 @@ public class LessonsPlaygroud {
         System.out.println("b = " + b);
     }
 
+//String currency = "135.69";
+//System.out.println(new BigDecimal(currency));
+
+
 //    git --version
 //    git
 

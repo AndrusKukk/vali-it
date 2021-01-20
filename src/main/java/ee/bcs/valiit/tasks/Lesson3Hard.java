@@ -1,6 +1,5 @@
 package ee.bcs.valiit.tasks;
 
-import org.hibernate.type.TrueFalseType;
 
 import java.util.HashMap;
 import java.util.Map;
