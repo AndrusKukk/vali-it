@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 @RequestMapping("Lesson4ModController")
 @RestController
-public class Lesson4ModController {
+public class  Lesson4ModController {
     static HashMap<String, BigDecimal> accountBalanceMap = new HashMap<>();
     static int accountNumberInt = 0;
 

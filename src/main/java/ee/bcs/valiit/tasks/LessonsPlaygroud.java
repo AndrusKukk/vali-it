@@ -11,7 +11,13 @@ public class LessonsPlaygroud {
 
         System.out.println("a = " + a);
         System.out.println("b = " + b);
+
+        Book bookA = new Book();
+        bookA.setTitle("Minu lugu");
+
     }
+
+
 
 //String currency = "135.69";
 //System.out.println(new BigDecimal(currency));
