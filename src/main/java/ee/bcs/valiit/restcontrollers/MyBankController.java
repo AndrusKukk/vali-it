@@ -80,7 +80,35 @@ public class MyBankController {
 
     }
 
-    public void transferMoney(){
+    @PutMapping("transferMoney")
+    public void transferMoney(@RequestBody MyBankAccount myBankAccount){
+        String sql = "SELECT balance FROM accounts WHERE accountnumber = :fromAccount";
+        Map<String, Object> paramMap = new Hashtable<>();
+        paramMap.put("fromAccount", myBankAccount.getAccountNumber());
+        int fromBalance = jdbcTemplate.queryForObject(sql, paramMap, Integer.class);
+
+        String sql2 ="SELECT balance FROM accounts WHERE accountnumber =:toAccount";
+        Map<String, Object> paramMap2 = new Hashtable<>();
+        paramMap2.put("toAccount", myBankAccount.getTransferToAccountNumber());
+        int tobalance = jdbcTemplate.queryForObject(sql2, paramMap2, Integer.class);
+
+        int newFromBalance = fromBalance - myBankAccount.getTransferAmount();
+        int newToBalance = tobalance + myBankAccount.getTransferAmount();
+        myBankAccount.setBalance(newFromBalance);
+        myBankAccount.setTransferToBalance(newToBalance);
+
+        String sql3 = "UPDATE accounts SET balance = :updateBalance1 WHERE accountnumber = :accountnumberParam1";
+        Map<String, Object> paramMap3 = new Hashtable<>();
+        paramMap3.put("accountnumberParam1", myBankAccount.getAccountNumber());
+        paramMap3.put("updateBalance1", myBankAccount.getBalance());
+        jdbcTemplate.update(sql3, paramMap3);
+
+        String sql4 = "UPDATE accounts SET balance = :updateBalance2 WHERE accountnumber = :accountnumberParam2";
+        Map<String, Object> paramMap4 = new Hashtable<>();
+        paramMap4.put("accountnumberParam2", myBankAccount.getTransferToAccountNumber());
+        paramMap4.put("updateBalance2", myBankAccount.getTransferToBalance());
+        jdbcTemplate.update(sql4, paramMap4);
+
 
     }
 

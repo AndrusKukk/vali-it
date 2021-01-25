@@ -6,6 +6,10 @@ public class MyBankAccount {
     private int balance;
     private int depositAmount;
     private int withdrawAmount;
+    private String transferToAccountNumber;
+    private int transferToBalance;
+    private int transferAmount;
+
 
     public String getAccountNumber() {
         return accountNumber;
@@ -47,7 +51,31 @@ public class MyBankAccount {
         this.withdrawAmount = withdrawAmount;
     }
 
-//    public int depositMoney() {
+    public String getTransferToAccountNumber() {
+        return transferToAccountNumber;
+    }
+
+    public void setTransferToAccountNumber(String transferToAccountNumber) {
+        this.transferToAccountNumber = transferToAccountNumber;
+    }
+
+    public int getTransferToBalance() {
+        return transferToBalance;
+    }
+
+    public void setTransferToBalance(int transferToBalance) {
+        this.transferToBalance = transferToBalance;
+    }
+
+    public int getTransferAmount() {
+        return transferAmount;
+    }
+
+    public void setTransferAmount(int transferAmount) {
+        this.transferAmount = transferAmount;
+    }
+
+    //    public int depositMoney() {
 //        this.balance += this.depositAmount;
 //        return this;
 //    }
