@@ -1,4 +1,4 @@
-package ee.bcs.valiit.tasks;
+package ee.bcs.valiit.tasks.codeWars;
 
 public class CW_Convert_string_to_camel_case {
     public static void main(String[] args) {

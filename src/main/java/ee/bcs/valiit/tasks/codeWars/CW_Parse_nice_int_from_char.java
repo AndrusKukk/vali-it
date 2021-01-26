@@ -1,4 +1,4 @@
-package ee.bcs.valiit.tasks;
+package ee.bcs.valiit.tasks.codeWars;
 
 public class CW_Parse_nice_int_from_char {
     public static void main(String[] args) {

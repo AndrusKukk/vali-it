@@ -1,4 +1,4 @@
-package ee.bcs.valiit.tasks;
+package ee.bcs.valiit.tasks.codeWars;
 
 public class CW_Convert_to_Binary {
     public static void main(String[] args) {

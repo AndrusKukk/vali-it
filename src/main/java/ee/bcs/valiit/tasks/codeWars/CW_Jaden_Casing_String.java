@@ -1,4 +1,4 @@
-package ee.bcs.valiit.tasks;
+package ee.bcs.valiit.tasks.codeWars;
 
 public class CW_Jaden_Casing_String {
     public static void main(String[] args) {
