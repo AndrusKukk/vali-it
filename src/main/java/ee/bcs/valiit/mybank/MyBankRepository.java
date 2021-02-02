@@ -19,11 +19,21 @@ public class MyBankRepository {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public void createAccount (String accountNr) {
-        String sql = "INSERT INTO accounts (accountnumber, balance) VALUES (:accountParam, :balanceParam)";
+    public void createAccount (String accountNr, int customerID) {
+        String sql = "INSERT INTO accounts (accountnumber, customer_id, balance) VALUES (:accountParam, :customerIdParam, :balanceParam)";
         Map<String, Object> paramMap = new Hashtable<>();
         paramMap.put("accountParam", accountNr);
+        paramMap.put("customerIdParam", customerID);
         paramMap.put("balanceParam", BigDecimal.ZERO);
+        jdbcTemplate.update(sql, paramMap);
+    }
+
+    public void addCustomer (String name, String address, String phone) {
+        String sql = "INSERT INTO customers (name, address, phone) VALUES (:nameParam, :addressParam, :phoneParam)";
+        Map<String, Object> paramMap = new Hashtable<>();
+        paramMap.put("nameParam", name);
+        paramMap.put("addressParam", address);
+        paramMap.put("phoneParam", phone);
         jdbcTemplate.update(sql, paramMap);
     }
 
@@ -42,9 +52,24 @@ public class MyBankRepository {
         jdbcTemplate.update(sql2, paramMap2);
     }
 
+    public void logHistory (int amount, String fromAccount, String toAccount) {
+        String sql = "INSERT INTO accounthistory (timestamp, amount, fromaccount, toaccount) VALUES (current_timestamp, :amountParam, :fromAccountParam, :toAccountParam)";
+        Map<String, Object> paramMap = new Hashtable<>();
+        paramMap.put("amountParam",amount);
+        paramMap.put("fromAccountParam",fromAccount);
+        paramMap.put("toAccountParam",toAccount);
+        jdbcTemplate.update(sql, paramMap);
+    }
+
     public List<MyBankAccount> getAccounts () {
         String sql = "SELECT * FROM accounts";
         List<MyBankAccount> result = jdbcTemplate.query(sql, new HashMap<>(), new MyBankRepository.MyBankAccountRowMapper());
+        return result;
+    }
+
+    public List<MyBankCustomer> getCustomers () {
+        String sql = "SELECT * FROM customers";
+        List<MyBankCustomer> result = jdbcTemplate.query(sql, new HashMap<>(), new MyBankRepository.MyBankCustomerRowMapper());
         return result;
     }
 
@@ -55,10 +80,19 @@ public class MyBankRepository {
             myBankAccount.setAccountNumber(resultSet.getString("accountnumber"));
             myBankAccount.setBalance(resultSet.getInt("balance"));
             myBankAccount.setId(resultSet.getInt("id"));
+            myBankAccount.setCustomerID(resultSet.getInt("customer_id"));
             return myBankAccount;
-
         }
+    }
 
-
+    private class MyBankCustomerRowMapper implements RowMapper<MyBankCustomer> {
+        @Override
+        public MyBankCustomer mapRow(ResultSet resultSet, int i) throws SQLException {
+            MyBankCustomer myBankCustomer = new MyBankCustomer();
+            myBankCustomer.setName(resultSet.getString("name"));
+            myBankCustomer.setAddress(resultSet.getString("address"));
+            myBankCustomer.setPhone(resultSet.getString("phone"));
+            return myBankCustomer;
+        }
     }
 }

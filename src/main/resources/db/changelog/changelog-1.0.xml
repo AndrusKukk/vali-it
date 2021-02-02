@@ -2,24 +2,44 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="1" author="Siim">
-        <createTable tableName="author">
+    <changeSet id="1" author="Andrus">
+        <createTable tableName="customers">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="text"/>
+            <column name="address" type="text"/>
+            <column name="phone" type="text" />
         </createTable>
 
-        <createTable tableName="book">
+        <createTable tableName="accounts">
             <column name="id" type="int" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="name" type="text"/>
-            <column name="author_id" type="int">
-                <constraints foreignKeyName="fk_book_author" references="author(id)"/>
+            <column name="accountnumber" type="text"/>
+            <column name="balance" type="int"/>
+            <column name="customer_id" type="int">
+                <constraints foreignKeyName="fk_customer_id" references="customers(id)"/>
             </column>
+        </createTable>
+
+    </changeSet>
+    
+    <changeSet id="2" author="Andrus">
+        <createTable tableName="accounthistory">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="timestamp" type="timestamptz"/>
+            <column name="fromaccount" type="text"/>
+            <column name="toaccount" type="text"/>
+            <column name="amount" type="int"/>
+            <column name="account_id" type="int">
+                <constraints foreignKeyName="fk_account_id" references="accounts(id)"/>
+            </column>
+
         </createTable>
     </changeSet>
 </databaseChangeLog>

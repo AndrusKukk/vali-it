@@ -2,79 +2,153 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>My Bank</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div style="text-align: center">
-    <table style="margin-left:auto;margin-right:auto;" border="1" width="50%">
-        <tr>
-            <td>test</td>
-        </tr>
-    </table>
-    <div id="container">
-        Tühi div
-    </div>
-    <form method="post">
-    valik1: <input type="radio" name="a">
-    <input type="radio" name="a">
-    <input type="radio" name="a">
-    <input type="radio" name="b">
-    <input type="radio" name="b">
-    <input type="radio" name="b">
-    <br>
-    hidden: <input type="hidden">
-    <br>
-    text: <input id="textElement" type="text"/>
-    <br>
-    password: <input type="password"/>
-    <br>
-    textarea: <textarea name="aa"></textarea>
-    <br>
-    select:
-    <select>
-        <option>valik 1</option>
-        <option>valik 2</option>
-        <option>valik 3</option>
-    </select>
-    <br>
-    fail: <input type="file"/>
-    <br>
-    number: <input type="number"/>
-    <br>
-    email: <input type="email"/>
-    <br>
-    date: <input type="date">
-    <br>
-    datetime: <input type="datetime-local">
-    <br>
-    week: <input type="week">
-    <br>
-    time: <input type="time">
-    <br>
-    color: <input type="color">
-    <br>
-    range: <input type="range">
-    <br>
-    tel: <input type="tel">
-    <input type="submit">
-    </form>
 
-    <script>
-        function calculateLoan(amount,months,interest = 10, name="John"){
-            return months;
-        }
-        console.log(calculateLoan(1000, 36, 7, "John Snow"));
-        console.log(calculateLoan(1000, 36, 7, "John", "A"));
-        console.log(calculateLoan(1000, 36));
-        console.log(calculateLoan());
-        let element = document.getElementById("textElement");
-        element.value = "midagi";
-        let myElement = document.getElementById("container");
-        let myNewElement = document.createElement("input");
-        myElement.append(myNewElement);
-        myNewElement.value="mingi tekst";
-    </script>
-</div>
+    <h2>Create account</h2>
+    Account number: <input id="accountNrInput"><br>
+    Customer id: <input id="customerIdInput"><br>
+    <button id="create_account_button" type="button">Create account</button><br>
+
+    <h2>Create customer</h2>
+    Customer name: <input id="customerNameInput"><br>
+    Customer address: <input id="customerAddressInput"><br>
+    Customer phone: <input id="customerPhoneInput"><br>
+    <button id="create_customer_button" type="button">Create customer</button><br>
+
+    <h2>Get balance</h2>
+    Account number: <input id="accountNrInputGB"><br>
+    <button id="get_balance_button" type="button">Get balance</button><br>
+    Balance: <input id="get_balance_answer" disabled/>
+
+    <h2>Deposit money</h2>
+    Account number: <input id="accountNrInputDM"><br>
+    Deposit amount: <input id="depositAmountInput"><br>
+    <button id="deposit_money_button" type="button">Deposit money</button>
+
+    <h2>Withdraw money</h2>
+    Account number: <input id="accountNrInputWM"><br>
+    Withdraw amount: <input id="withdrawAmountInput"><br>
+    <button id="withdraw_money_button" type="button">Withdraw money</button>
+
+    <h2>Transfer money</h2>
+    From account: <input id="fromAccountInput"><br>
+    To account: <input id="toAccountInput"><br>
+    Transfer amount: <input id="transferAmountInput"><br>
+    <button id="transfer_money_button" type="button">Transfer money</button>
+
+<script>
+    function transferMoney(){
+        let fromAccountSearchField = document.getElementById("fromAccountInput");
+        let toAccountSearchField = document.getElementById("toAccountInput");
+        let transferAmount = document.getElementById("transferAmountInput")
+        fetch('/mybank/transferMoney?fromAccount='+fromAccountSearchField.value+
+            '&toAccount='+toAccountSearchField.value+
+            '&transferAmount='+transferAmount.value,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+    }
+
+    let transferMoneyButton = document.getElementById("transfer_money_button");
+    transferMoneyButton.onclick = transferMoney;
+
+    function createAccount() {
+        let accountNrSearchField = document.getElementById("accountNrInput");
+        let customerIdSearchField = document.getElementById("customerIdInput");
+        fetch('/mybank/addAccount?accountNr='+accountNrSearchField.value+
+            '&customerID='+customerIdSearchField.value,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+    }
+
+    let createAccountButton = document.getElementById("create_account_button");
+    createAccountButton.onclick = createAccount;
+
+    function createCustomer() {
+        let customerNameSearchField = document.getElementById("customerNameInput");
+        let customerAddressSearchField = document.getElementById("customerAddressInput");
+        let customerPhoneSearchField = document.getElementById("customerPhoneInput");
+        fetch('/mybank/addCustomer?name='+customerNameSearchField.value+
+            '&address='+customerAddressSearchField.value+
+            '&phone='+customerPhoneSearchField.value,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+    }
+
+    let createCustomerButton = document.getElementById("create_customer_button");
+    createCustomerButton.onclick = createCustomer;
+
+    let getBalanceAnswer = document.getElementById("get_balance_answer");
+
+    function getBalance() {
+        let accountNrGBSearchField = document.getElementById("accountNrInputGB");
+
+        fetch('/mybank/getBalance?accountNr='+accountNrGBSearchField.value,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        .then(result => result.text())
+        .then(function(result){
+            getBalanceAnswer.value = result;
+        })
+    }
+
+    let getBalanceButton = document.getElementById("get_balance_button");
+    getBalanceButton.onclick = getBalance;
+
+
+    function depositMoney(){
+        let accountNrSearchField = document.getElementById("accountNrInputDM");
+        let depositAmountSearchField = document.getElementById("depositAmountInput");
+        fetch('/mybank/depositMoney?accountNr='+accountNrSearchField.value+
+            '&depositAmount='+depositAmountSearchField.value,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+    }
+
+    let depositMoneyButton = document.getElementById("deposit_money_button");
+    depositMoneyButton.onclick = depositMoney;
+
+
+    function withdrawMoney(){
+        let accountNrSearchField = document.getElementById("accountNrInputWM");
+        let withdrawAmountSearchField = document.getElementById("withdrawAmountInput");
+        fetch('/mybank/withdrawMoney?accountNr='+accountNrSearchField.value+
+            '&withdrawAmount='+withdrawAmountSearchField.value,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+    }
+
+    let withdrawMoneyButton = document.getElementById("withdraw_money_button");
+    withdrawMoneyButton.onclick = withdrawMoney;
+</script>
+
+
 </body>
 </html>
 

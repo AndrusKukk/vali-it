@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <p>Min value</p>
+    a: <input id="min_a"><br>
+    b: <input id="min_b"><br>
+    <button id="min_button" type="button">Get Min</button><br>
+    vastus: <input id="min_answer" disabled/>
+
+    <p>Max value</p>
+    a: <input id="max_a">
+    b: <input id="max_b">
+    <button id="max_button" type="button">Get Max</button>
+    vastus: <input id="max_answer" disabled/>
+
+    <p>Abs value</p>
+    a: <input id="abs_a">
+    <button id="abs_button" type="button">Get Abs</button>
+    vastus: <input id="abs_answer" disabled/>
+
+    <p>Is even</p>
+    a: <input id="even_a">
+    <button id="even_button" type="button">Is even?</button>
+    vastus: <input id="even_answer" disabled/>
+
+    <p>Min of three</p>
+    a: <input id="min3_a">
+    b: <input id="min3_b">
+    c: <input id="min3_c">
+    <button id="min_of_three_button" type="button">Get Min</button>
+    vastus: <input id="min_of_three_answer" disabled/>
+
+    <p>Max of three</p>
+    a: <input id="max3_a">
+    b: <input id="max3_b">
+    c: <input id="max3_c">
+    <button id="max_of_three_button" type="button">Get Max</button>
+    vastus: <input id="max_of_three_answer" disabled/>
+
+    <button id="make_request_button">Make request</button>
+
+
+
+<script>
+
+    // function makeRequest () {
+    //     fetch("/mybank/getBalance?accountNr=EE0003")
+    //     .then(result => result.json())
+    //     .then(result => console.log(result));
+    // }
+
+    // let requestButton = document.getElementById("make_request_button");
+    // requestButton.onclick = makeRequest();
+
+    let min_a = document.getElementById("min_a");
+    let min_b = document.getElementById("min_b");
+    let min_answer = document.getElementById("min_answer");
+
+    let max_a = document.getElementById("max_a");
+    let max_b = document.getElementById("max_b");
+    let max_answer = document.getElementById("max_answer");
+
+    let abs_a = document.getElementById("abs_a");
+    let abs_answer = document.getElementById("abs_answer");
+
+    let even_a = document.getElementById("even_a");
+    let even_answer = document.getElementById("even_answer");
+
+    let min3_a = document.getElementById("min3_a");
+    let min3_b = document.getElementById("min3_b");
+    let min3_c = document.getElementById("min3_c");
+    let min3_answer = document.getElementById("min_of_three_answer");
+
+    let max3_a = document.getElementById("max3_a");
+    let max3_b = document.getElementById("max3_b");
+    let max3_c = document.getElementById("max3_c");
+    let max3_answer = document.getElementById("max_of_three_answer");
+
+    function pressMinButtonFunction() {
+        if (min_a.value < min_b.value) {
+            min_answer.value = min_a.value;
+        } else {
+            min_answer.value = min_b.value;
+        }
+    }
+
+    function pressMaxButtonFunction() {
+        if (max_a.value > max_b.value) {
+            max_answer.value = max_a.value;
+        } else {
+            max_answer.value = max_b.value;
+        }
+    }
+
+    function pressAbsButtonFunction() {
+        if (abs_a.value > 0) {
+            abs_answer.value = abs_a.value;
+        } else {
+            abs_answer.value = abs_a.value * -1;
+        }
+    }
+
+    function isEvenButtonFunction() {
+        if (even_a.value % 2 == 0) {
+            even_answer.value = "true";
+        } else {
+            even_answer.value = "false";
+        }
+    }
+
+    function minOfThreeButtonFunction(){
+        min3_answer.value = Math.min(min3_a.value, min3_b.value, min3_c.value );
+    }
+
+    function maxOfThreeButtonFunction(){
+        max3_answer.value = Math.max(max3_a.value, max3_b.value, max3_c.value );
+    }
+
+    let element1 = document.getElementById("min_button");
+    element1.addEventListener("click", pressMinButtonFunction)
+
+    let element2 = document.getElementById("max_button");
+    element2.addEventListener("click", pressMaxButtonFunction)
+
+    let element3 = document.getElementById("abs_button");
+    element3.addEventListener("click", pressAbsButtonFunction)
+
+    let element4 = document.getElementById("even_button");
+    element4.addEventListener("click", isEvenButtonFunction)
+
+    let element5 = document.getElementById("min_of_three_button");
+    element5.addEventListener("click", minOfThreeButtonFunction)
+
+    let element6 = document.getElementById("max_of_three_button");
+    element6.addEventListener("click", maxOfThreeButtonFunction)
+
+</script>
+</body>
+</html>
+
+
+
+
+
+

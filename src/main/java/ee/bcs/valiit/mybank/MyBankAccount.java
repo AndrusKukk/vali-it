@@ -4,6 +4,7 @@ public class MyBankAccount {
     private Integer id;
     private String accountNumber;
     private int balance;
+    private int customerID;
 
 
 
@@ -31,4 +32,11 @@ public class MyBankAccount {
         this.id = id;
     }
 
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
 }

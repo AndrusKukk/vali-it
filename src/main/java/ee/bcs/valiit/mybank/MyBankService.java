@@ -18,12 +18,20 @@ public class MyBankService {
     @Autowired
     private MyBankRepository myBankRepository;
 
-    public void createAccount(String accountNr) {
-        myBankRepository.createAccount(accountNr);
+    public void createAccount(String accountNr, int customerID) {
+        myBankRepository.createAccount(accountNr, customerID);
+    }
+
+    public void addCustomer(String name, String address, String phone) {
+        myBankRepository.addCustomer(name, address, phone);
     }
 
     public List<MyBankAccount> getAccounts (MyBankAccount myBankAccount) {
         return myBankRepository.getAccounts();
+    }
+
+    public List<MyBankCustomer> getCustomers (MyBankCustomer myBankCustomer)     {
+        return myBankRepository.getCustomers();
     }
 
     public int getBalance(String accountNr) {
@@ -34,16 +42,18 @@ public class MyBankService {
         int balance = myBankRepository.getBalance(accountNr);
         balance += depositAmount;
         myBankRepository.setBalance(accountNr, balance);
+        myBankRepository.logHistory(depositAmount, "deposit", accountNr);
     }
 
     public void withdrawMoney(String accountNr, int withdrawAmount) {
         int balance = myBankRepository.getBalance(accountNr);
 
         if (balance < withdrawAmount) {
-            throw new RuntimeException("Not enough money");
+            throw new MyBankException("Not enough money");
         }
         balance -= withdrawAmount;
         myBankRepository.setBalance(accountNr, balance);
+        myBankRepository.logHistory(withdrawAmount, accountNr, "withdraw");
     }
 
 
@@ -52,7 +62,7 @@ public class MyBankService {
         int toBalance = myBankRepository.getBalance(toAccount);
 
         if (fromBalance < transferAmount) {
-            throw new RuntimeException("Not enough money");
+            throw new MyBankException("Not enough money");
         }
 
         int newFromBalance = fromBalance - transferAmount;
@@ -60,6 +70,11 @@ public class MyBankService {
 
         myBankRepository.setBalance(fromAccount, newFromBalance);
         myBankRepository.setBalance(toAccount, newToBalance);
+        myBankRepository.logHistory(transferAmount, fromAccount, toAccount);
+        myBankRepository.logHistory(transferAmount, fromAccount, toAccount);
+
     }
+
+
 
 }

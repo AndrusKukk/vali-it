@@ -20,14 +20,21 @@ import java.util.Map;
 public class MyBankController {
 
     private MyBankAccount myBankAccount;
+    private MyBankCustomer myBankCustomer;
 
     @Autowired
     private MyBankService myBankService;
 
     // http://localhost:8080/mybank/addAccount?accountNr=EE0003
     @PostMapping("addAccount")
-    public void addAccount(@RequestParam("accountNr") String accountNr){
-        myBankService.createAccount(accountNr);
+    public void addAccount(@RequestParam("accountNr") String accountNr, @RequestParam("customerID") int customerID){
+        myBankService.createAccount(accountNr, customerID);
+    }
+
+    // http://localhost:8080/mybank/addCustomer?name=Andrus&address=Tallinn&phone=1234
+    @PostMapping("addCustomer")
+    public void addCustomer(@RequestParam("name") String name, @RequestParam("address") String address, @RequestParam("phone") String phone) {
+        myBankService.addCustomer(name, address, phone);
     }
 
     // http://localhost:8080/mybank/getBalance?accountNr=EE0003
@@ -62,6 +69,12 @@ public class MyBankController {
     @GetMapping("getAccounts")
     public List<MyBankAccount> getAccounts() {
         return myBankService.getAccounts(myBankAccount);
+    }
+
+    // http://localhost:8080/mybank/getCustomers
+    @GetMapping("getCustomers")
+    public List<MyBankCustomer> getCustomers() {
+        return myBankService.getCustomers(myBankCustomer);
     }
 
 
