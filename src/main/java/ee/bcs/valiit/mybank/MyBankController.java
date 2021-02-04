@@ -26,6 +26,7 @@ public class MyBankController {
     private MyBankService myBankService;
 
     // http://localhost:8080/mybank/addAccount?accountNr=EE0003
+    @CrossOrigin
     @PostMapping("addAccount")
     public void addAccount(@RequestParam("accountNr") String accountNr, @RequestParam("customerID") int customerID){
         myBankService.createAccount(accountNr, customerID);

@@ -42,4 +42,14 @@
 
         </createTable>
     </changeSet>
+
+    <changeSet id="3" author="Andrus">
+        <createTable tableName="my_bank_users">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_name" type="text"/>
+            <column name="user_password" type="text"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>

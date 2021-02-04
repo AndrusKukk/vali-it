@@ -73,6 +73,13 @@ public class MyBankRepository {
         return result;
     }
 
+    public String findByUserName (String userName) {
+        String sql = "SELECT user_password FROM my_bank_users WHERE user_name = :userNameParam";
+        Map<String, Object> paramMap = new Hashtable<>();
+        paramMap.put("userNameParam", userName);
+        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
+    }
+
     private class MyBankAccountRowMapper implements RowMapper<MyBankAccount> {
         @Override
         public MyBankAccount mapRow(ResultSet resultSet, int i) throws SQLException {
